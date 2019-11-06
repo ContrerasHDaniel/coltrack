@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- FontAwesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+    <!-- DataTables CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <!-- Icon -->
+    <link rel="icon" href="/img/Marcador_GDE.png">
+    <!-- Title -->
+    <title>ColTrack</title>
+</head>
+<!-- Head -->
+
+<!-- Body -->
+<body id="page-top">
+    
+    <!-- Page wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul id="accordionSidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+            <!-- Sidebar - brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <img class="icon" src="/img/Coltrack-APP.png">
+                </div>
+                <div class="sidebar-brand-text mx-3">
+                    ColTrack
+                    <sub>V0.1</sub>
+                </div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Monitoreo -->
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-fw fa-map-marker-alt">
+                    </i>
+                    <span>Monitoreo</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Colmenas -->
+            <li class="nav-item">
+                <a class="nav-link" href="/colmenas">
+                    <i class="far fa-fw fa-clipboard">
+                    </i>
+                    <span>Mis colmenas</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Estadísticas -->
+            <li class="nav-item">
+                <a class="nav-link" href="/stats">
+                    <i class="fas fa-fw fa-chart-line">
+                    </i>
+                    <span>Estadísticas</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Content wrapper -->
+        <div id="content-wrapper">
+            <!-- navbar -->
+            <nav class="navbar nav-expand-lg shadow navbar-light" color-on-scroll="500">
+                <div class="container-fluid">
+                    <div id="navigation" class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav mr-2">
+                            <li class="nav-item">
+                                <div class="notification-box">
+                                    {{!-- <span class="notification-count">1</span> --}}
+                                    <div class="notification-bell dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="alertsDropdown">
+                                        <span class="bell-top"></span>
+                                        <span class="bell-middle"></span>
+                                        <span class="bell-bottom"></span>
+                                        <span class="bell-rad"></span>
+                                    </div>
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelled-by="alertsDropdown">
+						                <h6 class="dropdown-header">Centro de Alertas</h6>
+						                <a class="dropdown-item d-flex align-items-center" href="#">
+							                <div class="mr-3" id="alert-msg">
+								                <div class="small text-gray-500">No hay alertas por el momento</div>
+							                </div>
+						                </a>
+					                </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Contents hbs -->
+            <div class="content-fluid">
+                {{{ body }}}
+            </div>
+            <!-- Contents hbs -->
+        </div>
+    </div>
+    <!-- Page wrapper -->
+
+<!-- Socket.io -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- DataTables Script -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<!-- Latest compiled BS-JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- Socket client -->
+<script type="text/javascript" src="/js/socket.js"></script>
+</body>
+
+</html>
+
+<script>
+    
+    $(document).ready(function(){
+    
+    });
+</script>

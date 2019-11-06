@@ -1,0 +1,71 @@
+<!-- Page heading -->
+<h1 class="h3 text-gray-800">Mis colmenas</h1>
+
+<!-- Content row -->
+<div class="row">
+    <!-- Colmenas page -->
+    <div id="tableColmenas" class="card shadow mb-4">
+        <!-- Card header -->
+        <div class="card-header py-3">
+            <h6 class="m-0 text-primary">Inventario de colmenas</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTable_wrapper">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <table id="dataTable" class="table table-bordered dataTable text-align-center" role="grid" aria-describedby="dataTable_info">
+                                {{> table_colmenasHnF }}
+                                <tbody>
+                                    {{fillColmenas colmenas}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal info -->
+{{> colmena_info }}
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- DataTables Script -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script>
+$(document).ready(function(){
+    //Inicializa el dataTable
+    var table = $('#dataTable').DataTable({
+        "language": {
+            lengthMenu: "Mostrar _MENU_ registros por página",
+            zeroRecords: "No hay registros para mostrar",
+            info: "Mostrando página _PAGE_ de _PAGES_",
+            infoEmpty: "No hay registros disponibles",
+            infoFiltered: "(filtrados de un total de _MAX_ registros)",
+            search: "Buscar"
+        },
+        "oLanguage":{
+            "oPaginate":{
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            }
+        }
+    });
+
+    // Evento click en fila de la tabla
+    $('#dataTable > tbody > tr').click(function(){
+        $('input[name=tag]').val($(this).find('#tag').html());
+        $('input[name=alias]').val($(this).find('#alias').html());
+        $('input[name=type]').val($(this).find('#type').html());
+        $('input[name=frames]').val($(this).find('#frames').html());
+        $('input[name=reserveFrame]').val($(this).find('#reserveFrame').html());
+        $('input[name=lastCleanUp]').val($(this).find('#lastCleanUp').html());
+        $('input[name=production]').val($(this).find('#production').html());
+        $('input[name=zone]').val($(this).find('#zone_id').html());
+        $('#infoModal').modal('show');
+    });
+});
+</script>

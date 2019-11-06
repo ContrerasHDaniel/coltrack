@@ -1,0 +1,142 @@
+<!-- Page Heading -->
+<h1 class="h3 text-gray-800">Monitoreo de zonas apícolas</h1>
+
+<!-- Content row -->
+<div class="row">
+    <!-- Content column -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-primary border-right-primary shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center">
+                <h6 class="m-0 text-primary">Seleccione una zona</h6>
+            </div>
+            <div class="card-body">
+                <!-- Dropdown -->
+                <div id="dropdown" class="ddmenu">
+                    <span class="selLabel">Zonas</span>
+                    <ul>
+                        {{fillZonas zonas}}
+                    </ul>
+                </div>
+
+                <!-- DataTable -->
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="zonesTable" class="table table-bordered dataTable text-align-center" role="grid" aria-describedby="dataTable_info">
+                                    {{> table_monitHnF }}
+                                    <tbody id="tableHives">
+                                                                            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content column -->
+    <div class="col-xl-8 col-md-8 mb-4">
+        <div class="card border-left-primary border-right-primary shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center">
+                <h6 id="mapTitle" class="m-0 font-weight-bold text-primary">Zona:</h6>
+            </div>
+            <!-- Mapa -->
+            <div class="card-body">
+                <div class="map-area align-items-center">
+                    <div id="map">
+                        <input type="hidden" id="lat" value="{{lat}}">
+	      				<input type="hidden" id="lng" value="{{lng}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="weatherWidget" class="card shadow border-left-primary border-right-primary mb-4">
+            <a class="weatherwidget-io" href="https://forecast7.com/es/22d77n102d57/zacatecas-centro/" data-label_1="ZACATECAS" data-label_2="CLIMA" data-theme="desert" >ZACATECAS CLIMA</a>
+        </div>
+    </div>
+    {{!-- <div class="col-xl-8 align-items-center">
+        <div class="card shadow border-left-primary border-right-primary mb-4 align-text-center">
+            <div class="temp-monitor">
+                <div class="row align-items-center ml-5 pt-3 pb-3">
+                    <div class="col-sm-4 pl-5">
+                        <img class="thermometer" src="/img/thermometer-red.png" title="Colmena roja">
+                        <div>Colmena roja</div>
+                    </div>
+                    <div class="col-sm-4 pl-5">
+                        <img class="thermometer" src="/img/thermometer-blue.png" title="Colmena azul">
+                        <div>Colmena azul</div>
+                    </div>
+                    <div class="col-sm-4 pl-5">
+                        <img class="thermometer" src="/img/thermometer-red.png" title="Colmena sada">
+                        <div>Colmena sada</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- DataTables Script -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<!-- Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5Jx2pqC6kJCEmSP_1yoVdGmvr6HZUJSI&callback=initMap" async defer></script>
+<!-- Custom js -->
+<script type="text/javascript" src="/js/map.js"></script>
+<script type="text/javascript" src="/js/weather.js"></script>
+<script type="text/javascript" src="/js/utilsMonitoreo.js"></script>
+
+<script>
+$(document).ready(function(){
+    var weatherGpe ="https://forecast7.com/en/22d76n102d51/guadalupe/";
+    var weatherZac = "https://forecast7.com/es/22d77n102d57/zacatecas-centro/";
+    //Inicializa el dataTable
+    var table = $('#zonesTable').DataTable({
+        "language": {
+            zeroRecords: "No hay registros para mostrar",
+            },
+            "dom": 'rt'
+    });
+
+    // Evento de click en el dropdown
+    $("#dropdown").on('click', function(e){
+        e.preventDefault();
+
+        if($(this).hasClass("open")){
+            $(this).removeClass("open");
+            $(this).children("ul").slideUp("fast");
+        } else {
+            $(this).addClass("open");
+            $(this).children("ul").slideDown("fast");
+        }
+    });
+
+    // Evento de click en un elemento del dropdown
+    $("#dropdown li").click(function(e){
+        e.preventDefault();
+        
+        $('.selLabel').text($(this).text());
+        $('#mapTitle').text("Zona: "+ $(this).text());
+
+        var center = $(this).attr('data-value');
+        // TEMPORAL
+        //if(center === 'g11111') {
+        //    $('#weatherWidget').html('<a class="weatherwidget-io" href="https://forecast7.com/es/22d77n102d57/zacatecas-centro/" data-label_1="ZACATECAS" data-label_2="CLIMA" data-theme="desert" >ZACATECAS CLIMA</a>');
+            //$( '#weatherwidget-io-0').attr( 'src', function ( i, val ) { return val; });
+        //} else {
+          //  $('#weatherWidget').html('<a class="weatherwidget-io" href="https://forecast7.com/en/22d76n102d51/guadalupe/" data-label_1="GUADALUPE" data-label_2="CLIMA" data-theme="desert" >GUADALUPE CLIMA</a>');
+            //$( '#weatherwidget-io-0').attr( 'src', function ( i, val ) { return val; });
+        //}
+        getColmenas(center);
+    });
+});
+</script>

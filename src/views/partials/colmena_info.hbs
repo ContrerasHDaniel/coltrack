@@ -1,0 +1,81 @@
+<!-- Info modal -->
+<div id="infoModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Información de colmena: [Alias]</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="row">
+                    <img class="img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR737qzydyueEIh46henBIPLjtrpojcB8dT7ZTHU73FOgWxH-cDNg&s">
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 form-group mx-3">
+                        <input type="hidden" name="tag" value="">
+                        <label for="alias">Alias</label>
+                        <input id="alias" name="alias" class="form-control" type="text" disabled>
+                    </div>
+                    <div class="col-xs-6 form-group ml-auto mr-4">
+                        <label for="type">Tipo</label>
+                        <select id="type" name="type" class="browser-default custom-select form-control" type="text" disabled>
+                            <option value="0">Floración Mezquite</option>
+                            <option value="1">Floración Aguacate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 mx-3">
+                        <div class="row">
+                            <div class="col-xs-3 form-group mx-3">
+                                <label for="lastCleanUp">Última recolección</label>
+                                <input id="lastCleanUp" name="lastCleanUp" class="form-control" type="date" disabled>
+                            </div>
+                            <div class="col-xs-3 form-group ml-auto">
+                                <label for="production">Miel (kg)</label>
+                                <input id="production" name="production" class="form-control" type="text" size="4" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 mx-3 ml-auto mr-4">
+                        <div class="row">
+                            <div class="col-xs-3 form-group mr-5">
+                                <label for="frames">Bastidores</label>
+                                <input id="frames" name="frames" class="form-control" size="7" type="text" disabled>
+                            </div>
+                            <div class="col-xs-3 form-group mx-4 ml-auto">
+                                <label for="selectReserve">Reserva</label>
+                                <select id="selectReserve" name="selectReserve" class="browser-default custom-select" disabled>
+                                    <option value="0">No</option>
+                                    <option value="1">Sí</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 mx-3 form-group">
+                        <label for="zone">Zona</label>
+                        <input id="zone" name="zone" type="text" class="form-control" disabled>
+                    </div>
+                    <div class="col-xs-6 mr-4 ml-auto form-group">
+                        <label for="device">Dispositivo</label>
+                        <input id="device" name="device" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info">Editar</button>
+                <button type="button" class="btn btn-primary">Imprimir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

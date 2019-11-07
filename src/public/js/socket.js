@@ -18,6 +18,12 @@ $(document).ready(function(){
                                     + '<div id="dropNotif" class="dropdown-list dropdown-menu shadow animated--grow-in" aria-labelled-by="alertsDropdown">'
                                     + '</div>');
         
+        $('.notification').html('<div class="content"><div class="identifier"></div><div class="text text-white">Alerta!</div></div>');
+
+        $('.notification').addClass('notify');
+        $('.identifier').addClass('exit');
+        $('.text').addClass('exit');
+        
         $('.notification-count').addClass('new-notification');
         $('.notification-bell').addClass('new-notification');
         $('.bell-rad').addClass('new-notification');
@@ -33,6 +39,11 @@ $(document).ready(function(){
             $('.notification-count').removeClass('new-notification');
             $('.notification-bell').removeClass('new-notification');
             $('.bell-rad').removeClass('new-notification');
+        });
+
+        $('.notification').on('click', function(e){
+            e.preventDefault();
+            $(this).remove();
         });
     });
 });

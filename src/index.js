@@ -90,13 +90,20 @@ server = app.listen(app.get('port'), () => {
 });
 
 //
+io = require('socket.io')(server);
+io.on('connection', function (socket) {
+    socket.on('alert fired', function(from, msg){
+    });
+});
+
+// Socket listener
 const DeviceGPS = require('./models/DeviceGPS');
 
 // Socket init
-io = require('socket.io-client');
-var socket = io.connect('http://148.217.94.130:80');
+iocl = require('socket.io-client');
+var socketcl = iocl.connect('http://148.217.94.130:80');
 
-socket.on('updated', async function(msg){
+socketcl.on('updated', async function(msg){
     var {_id, position, battery, alerta } = msg;
     try {
         const newReg = new DeviceGPS({

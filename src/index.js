@@ -111,7 +111,7 @@ socket.on('updated', async function(msg){
                 const device = await DeviceGPS.findByIdAndUpdate(_id,
                     {
                         $push: {
-                            position: position,
+                            position: {_id: position[0]._id, lat: getLat(position[0].lat), lng: getLng(position[0].lng)},
                         },
                         battery: battery,
                         alert: alerta
@@ -127,3 +127,20 @@ socket.on('updated', async function(msg){
         console.error(e);
     }
 });
+
+/* Funciones de soporte */
+// Conversion del número obtenido por la consulta a un flotante para latitud
+function getLat(lat){
+    var b = ".";
+    var positionLat = 2;
+    var outputLat = [lat.slice(0, positionLat), b, lat.slice(positionLat)].join('');
+    return outputLat;
+}
+
+// Conversion del número obtenido por la consulta a un flotante para latitud
+function getLng(lng){
+    var b = ".";
+    var positionLng = 4;
+    var outputLng = [lng.slice(0, positionLng), b, lng.slice(positionLng)].join('');
+    return outputLng;
+}

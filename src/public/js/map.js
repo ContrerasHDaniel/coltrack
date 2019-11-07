@@ -23,10 +23,10 @@ function updateMap(colmenas) {
     deleteMarkers();
 
     colmenas.forEach((colmena, idx, colmenas) => {
-        drawMarker(colmena.position[0].lat, colmena.position[0].lng, colmena.alias);
+        drawMarker(colmena.position.lat, colmena.position.lng, colmena.alias);
 
         if (idx === (colmenas.length -1)) {
-            latlngFocused = new google.maps.LatLng(colmena.position[0].lat, colmena.position[0].lng);
+            latlngFocused = new google.maps.LatLng(colmena.position.lat, colmena.position.lng);
         }
     });
 

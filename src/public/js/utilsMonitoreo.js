@@ -1,6 +1,10 @@
+/**
+ * Función para obtener las colmenas registradas en en una zona y dibujarlas en el mapa
+ * @param {string} zone_id 
+ */
 function getColmenas(zone_id) {
     $.ajax({
-        url: "/tracking",
+        url: "/dashboard/tracking",
         type: "POST",
         data: {zone_id: zone_id},
         dataType: 'json',
@@ -12,7 +16,7 @@ function getColmenas(zone_id) {
 
             $('#tableHives').html(out);
 
-            updateMap(colmenas);
+            updateMap(false, colmenas);
         },
         statusCode: {
             500: function (statusCode) {
@@ -22,7 +26,10 @@ function getColmenas(zone_id) {
     });
 }
 
-
+/**
+ * Función para dibujar la imagen de nivel de batería de acuerdo al número recibido desde el server
+ * @param {string} batteryLvl 
+ */
 function drawBattery(batteryLvl) {
     var level = "";
     switch (batteryLvl) {

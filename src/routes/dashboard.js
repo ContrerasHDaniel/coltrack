@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     });
 });
 
-router.post('/tracking', async (req, res) => {
+router.post('/dashboard/tracking', async (req, res) => {
     const colmenas = await Colmena.aggregate([
         {
             $match: {

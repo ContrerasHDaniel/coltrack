@@ -1,3 +1,4 @@
+// Dirección IP a la que se suscribe para recibir alertas
 var ipaddress = '148.217.94.130';
 var port = 80;
 
@@ -5,9 +6,11 @@ var port = 80;
 var port = 3000; */
 
 $(document).ready(function(){
+    // Inicialización del socket
     var socket = io('http://'+ipaddress+':'+port);
+    // Evento de una alerta lanzada
     socket.on('alert fired', function(msg){
-
+        // Se dibujan y muestran las animaciones de alerta en la página
         $('.notification-box').html('<span class="notification-count">1</span>'
                                     +'<div class="notification-bell dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="alertsDropdown">'
                                         + '<span class="bell-top"></span>'
@@ -34,6 +37,7 @@ $(document).ready(function(){
         var mssg = '</div><span class="small">Alerta! Una colmena ha sido abierta</span></a>'
         $('#dropNotif').html(header+aStart+divIcon+divI+mssg);
 
+        // Si se da click la campana se detiene la animación
         $('.notification-box').click(function(e){
             e.preventDefault();
             $('.notification-count').removeClass('new-notification');
@@ -41,9 +45,13 @@ $(document).ready(function(){
             $('.bell-rad').removeClass('new-notification');
         });
 
-        $('.notification').on('click', function(e){
+        // Si se da click la campana se elimina el elemento de alerta
+        $('.notification > .notify').on('click', function(e){
             e.preventDefault();
             $(this).remove();
         });
+
+        // Se centra el mapa en el dispositivo que envió la alerta
+        updateMap(true, msg);
     });
 });

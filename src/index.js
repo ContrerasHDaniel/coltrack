@@ -10,9 +10,14 @@ const flash = require('connect-flash');
 const app = express();
 require('./dbconnect');
 
-// Settings
+/**
+ * Settings
+ */
+// Set the port for the app server
 app.set('port', process.env.PORT || 3001);
+// Set the path where the views are
 app.set('views', path.join(__dirname, 'views'));
+// Configure the express engine
 app.engine('.hbs',
                 exhbs({
                     defaultLayout: 'main',
@@ -49,10 +54,12 @@ app.engine('.hbs',
                     }
                 })
         );
-
+// Set the view engine to use handlebars for the views
 app.set('view engine', '.hbs');
 
-// Middlewares
+/**
+ * Middlewares
+ */
 app.use(express.urlencoded({extended:true}));
 app.use(session({
 	secret: 'mysecretapp',
@@ -63,18 +70,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// Global variables
+/**
+ * Global variables
+ */
 app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 });
 
-// Routes
+/**
+ * Routes
+ */
 app.use(require('./routes/dashboard'));
 app.use(require('./routes/colmenas'));
 app.use(require('./routes/stats'));
 
-// Static Files
+/**
+ * Static files
+ */
 var options = {
     setHeaders: function(res, path, stat) {
         res.set('Service-Worker-Allowed', '/'),
@@ -84,12 +97,16 @@ var options = {
 
 app.use(express.static(__dirname + '/public', options));
 
-// Server init
+/**
+ * Server initialization
+ */
 server = app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
 });
 
-//
+/**
+ * Socket.io configuration
+ */
 io = require('socket.io')(server);
 io.on('connection', function (socket) {
     socket.on('alert fired', function(from, msg){
@@ -99,10 +116,11 @@ io.on('connection', function (socket) {
 // Socket listener
 const DeviceGPS = require('./models/DeviceGPS');
 
-// Socket init
+// Socket client initialization
 iocl = require('socket.io-client');
 var socketcl = iocl.connect('http://148.217.94.130:80');
 
+// Socket updated event
 socketcl.on('updated', async function(msg){
     var {_id, position, battery, alerta } = msg;
     try {
@@ -135,19 +153,24 @@ socketcl.on('updated', async function(msg){
     }
 });
 
-/* Funciones de soporte */
-// Conversion del número obtenido por la consulta a un flotante para latitud
+/**
+ * Funcion para convertir un string de latitud sin punto flotante en un string con punto flotante. Sólo funciona para posiciones con 2 dígitos decimales.
+ * @param {String} lat 
+ */
 function getLat(lat){
-    var b = ".";
+    var float = ".";
     var positionLat = 2;
-    var outputLat = [lat.slice(0, positionLat), b, lat.slice(positionLat)].join('');
+    var outputLat = [lat.slice(0, positionLat), float, lat.slice(positionLat)].join('');
     return outputLat;
 }
 
-// Conversion del número obtenido por la consulta a un flotante para latitud
+/**
+ * Funcion para convertir un string de latitud sin punto flotante en un string con punto flotante. Sólo funciona para posiciones con 3 dígitos decimales y un signo.
+ * @param {String} lng 
+ */
 function getLng(lng){
-    var b = ".";
+    var float = ".";
     var positionLng = 4;
-    var outputLng = [lng.slice(0, positionLng), b, lng.slice(positionLng)].join('');
+    var outputLng = [lng.slice(0, positionLng), float, lng.slice(positionLng)].join('');
     return outputLng;
 }

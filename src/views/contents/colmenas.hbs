@@ -57,6 +57,7 @@ $(document).ready(function(){
 
     // Evento click en fila de la tabla
     $('#dataTable > tbody > tr').click(function(){
+        // Se llenan los inputs con la información ya registrada de la colmena.
         $('input[name=tag]').val($(this).find('#tag').html());
         $('input[name=alias]').val($(this).find('#alias').html());
         $('input[name=type]').val($(this).find('#type').html());

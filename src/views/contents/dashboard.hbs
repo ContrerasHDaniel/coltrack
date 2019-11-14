@@ -56,34 +56,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xl-12">
-        <div id="weatherWidget" class="card shadow border-left-primary border-right-primary mb-4">
-            <a class="weatherwidget-io" href="https://forecast7.com/es/22d77n102d57/zacatecas-centro/" data-label_1="ZACATECAS" data-label_2="CLIMA" data-theme="desert" >ZACATECAS CLIMA</a>
-        </div>
-    </div>
-    {{!-- <div class="col-xl-8 align-items-center">
-        <div class="card shadow border-left-primary border-right-primary mb-4 align-text-center">
-            <div class="temp-monitor">
-                <div class="row align-items-center ml-5 pt-3 pb-3">
-                    <div class="col-sm-4 pl-5">
-                        <img class="thermometer" src="/img/thermometer-red.png" title="Colmena roja">
-                        <div>Colmena roja</div>
-                    </div>
-                    <div class="col-sm-4 pl-5">
-                        <img class="thermometer" src="/img/thermometer-blue.png" title="Colmena azul">
-                        <div>Colmena azul</div>
-                    </div>
-                    <div class="col-sm-4 pl-5">
-                        <img class="thermometer" src="/img/thermometer-red.png" title="Colmena sada">
-                        <div>Colmena sada</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-</div>
-
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- DataTables Script -->
@@ -92,15 +64,14 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5Jx2pqC6kJCEmSP_1yoVdGmvr6HZUJSI&callback=initMap" async defer></script>
 <!-- Custom js -->
 <script type="text/javascript" src="/js/map.js"></script>
-<script type="text/javascript" src="/js/weather.js"></script>
 <script type="text/javascript" src="/js/utilsMonitoreo.js"></script>
 
 <script>
 $(document).ready(function(){
-    var weatherGpe ="https://forecast7.com/en/22d76n102d51/guadalupe/";
-    var weatherZac = "https://forecast7.com/es/22d77n102d57/zacatecas-centro/";
+    
     //Inicializa el dataTable
     var table = $('#zonesTable').DataTable({
+        // Se especifican las leyendas y los elementos del dataTable a mostrar
         "language": {
             zeroRecords: "No hay registros para mostrar",
             },
@@ -111,10 +82,12 @@ $(document).ready(function(){
     $("#dropdown").on('click', function(e){
         e.preventDefault();
 
+        // Se oculta el menú si está abierto
         if($(this).hasClass("open")){
             $(this).removeClass("open");
             $(this).children("ul").slideUp("fast");
         } else {
+            // Se muestra el menú si está oculto
             $(this).addClass("open");
             $(this).children("ul").slideDown("fast");
         }
@@ -124,18 +97,12 @@ $(document).ready(function(){
     $("#dropdown li").click(function(e){
         e.preventDefault();
         
+        // Se cambia el título del select al del elemento seleccionado
         $('.selLabel').text($(this).text());
         $('#mapTitle').text("Zona: "+ $(this).text());
 
+        // Se configura el centro del mapa a la zona seleccionada
         var center = $(this).attr('data-value');
-        // TEMPORAL
-        //if(center === 'g11111') {
-        //    $('#weatherWidget').html('<a class="weatherwidget-io" href="https://forecast7.com/es/22d77n102d57/zacatecas-centro/" data-label_1="ZACATECAS" data-label_2="CLIMA" data-theme="desert" >ZACATECAS CLIMA</a>');
-            //$( '#weatherwidget-io-0').attr( 'src', function ( i, val ) { return val; });
-        //} else {
-          //  $('#weatherWidget').html('<a class="weatherwidget-io" href="https://forecast7.com/en/22d76n102d51/guadalupe/" data-label_1="GUADALUPE" data-label_2="CLIMA" data-theme="desert" >GUADALUPE CLIMA</a>');
-            //$( '#weatherwidget-io-0').attr( 'src', function ( i, val ) { return val; });
-        //}
         getColmenas(center);
     });
 });
